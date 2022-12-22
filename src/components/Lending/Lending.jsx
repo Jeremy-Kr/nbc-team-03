@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import SecularOne from "../../../Styles/fonts/SecularOne-Regular.ttf";
-import CustomBtn from "../../common/CustomBtn";
+import SecularOne from "../../Styles/fonts/SecularOne-Regular.ttf";
+import CustomBtn from "../common/CustomBtn";
 
 const Lending = () => {
   const navigate = useNavigate();
