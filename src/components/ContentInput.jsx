@@ -11,7 +11,7 @@ const ContentInput = () => {
           <UserInput type="text" placeholder="닉네임" autoFocus={true} />
           <UserInput type="password" placeholder="비밀번호" />
         </UserInputBox>
-        <WishInput placeholder="소원" />
+        <WishInput placeholder="소원을 적어주세요." />
         <TextareaBox>
           <label htmlFor="why">왜 이 소원을 이루고 싶으신가요?</label>
           <Textarea id="why" />
@@ -63,6 +63,7 @@ const Textarea = styled.textarea`
   padding-left: 3%;
   padding-top: 10px;
   margin-top: 10px;
+  resize: none;
 `;
 const UserInputBox = styled.div`
   display: flex;
