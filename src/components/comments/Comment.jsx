@@ -13,7 +13,6 @@ const Comment = () => {
         <CommentItem />
         <CommentItem />
         <CommentItem />
-        <CommentItem />
         {/* 아래 페이지네이션 구현 후 다시 변경할 것 */}
         <div
           style={{
@@ -30,15 +29,15 @@ const Comment = () => {
 };
 
 const CommentWrapper = styled.div`
+  margin-top: 40px;
   display: flex;
   justify-content: center;
 `;
 
 const CommentsContainer = styled.div`
   border-radius: 20px;
-  height: 600px;
+  height: auto;
   width: 480px;
-  margin-top: 200px;
   margin-left: 5px;
   background-color: #f8f5ef;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

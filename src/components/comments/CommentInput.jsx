@@ -47,6 +47,11 @@ const CustomInput = styled.input`
   border: 0.5px solid #35353f;
   padding: 0 8px;
   box-sizing: border-box;
+  &:focus {
+    outline: none;
+    border-color: #bb2649;
+    box-shadow: 0 0 5px #bb2649;
+  }
 `;
 
 const InputBoxContainer = styled.div`

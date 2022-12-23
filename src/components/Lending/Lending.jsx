@@ -3,15 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SecularOne from "../../Styles/fonts/SecularOne-Regular.ttf";
 import CustomBtn from "../common/CustomBtn";
-import Nav from "../../common/Nav";
-import ContentListItem from "../../contents/ContentListItem";
 
 const Lending = () => {
   const navigate = useNavigate();
   return (
     <LendingContainer>
-      <Nav />
-      <ContentListItem />
       <LendingTitle>
         作心
         <br />
@@ -26,7 +22,7 @@ const Lending = () => {
         }}
         width="200px"
         height="60px"
-        fontSize="20px"
+        fontSize="22px"
       >
         새해소원 빌러가기
       </CustomBtn>
@@ -74,7 +70,8 @@ const LendingQuote = styled.h2`
 
 const LendingText = styled.h2`
   color: #f8f5ef;
-  font-size: 25px;
+  font-size: 28px;
+  line-height: 130px;
 `;
 
 export default Lending;

@@ -2,46 +2,48 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomBtn from "./CustomBtn";
 
-const Nav = () => {
+const Nav = ({ isInput }) => {
   const navigate = useNavigate();
   return (
     <NavWrapper>
       <LogoDiv
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
       >
         作心
         <br />
         一年
       </LogoDiv>
-      <CustomBtn
-        onClick={() => {
-          navigate("/content/input");
-        }}
-        width="78px"
-        height="35px"
-        fontSize="15px"
-      >
-        소원빌기
-      </CustomBtn>
+      {!isInput && (
+        <CustomBtn
+          onClick={() => {
+            navigate("/input");
+          }}
+          width="95px"
+          height="40px"
+          fontSize="18px"
+        >
+          소원빌기
+        </CustomBtn>
+      )}
     </NavWrapper>
   );
 };
 
 const NavWrapper = styled.nav`
-  margin-top: 12px;
+  box-sizing: border-box;
   display: flex;
-  padding-left: 25px;
-  padding-top: 15px;
+  padding: 35px 40px 25px;
   background-color: #35353f;
   border: 1px solid #fff;
+  border-radius: 66px 66px 0 0;
   color: #f8f5ef;
   border: none;
-  width: 505px;
-  height: 70px;
+  width: 531px;
+  height: 100px;
   overflow: hidden;
-  font-size: 25px;
+  font-size: 30px;
   align-items: center;
   justify-content: space-between;
 `;
