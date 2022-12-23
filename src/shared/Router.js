@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Lending from "../components/comments/Lending/Lending";
 import GlobalStyle from "../components/common/GlobalStyle";
 import Layout from "../components/common/Layout";
+import ContentInput from "../components/ContentInput";
 
 const Router = () => {
   return (
@@ -12,6 +13,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Lending />} />
+            <Route path="/content/input" element={<ContentInput />} />
           </Route>
         </Routes>
       </BrowserRouter>
