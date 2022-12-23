@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Lending from "../components/comments/Lending/Lending";
+import Lending from "../components/Lending/Lending";
 import GlobalStyle from "../components/common/GlobalStyle";
 import Layout from "../components/common/Layout";
 import ContentInput from "../components/ContentInput";
