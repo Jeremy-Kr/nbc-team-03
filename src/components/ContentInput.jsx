@@ -64,6 +64,11 @@ const Textarea = styled.textarea`
   padding-top: 10px;
   margin-top: 10px;
   resize: none;
+  &:focus {
+    outline: none;
+    border-color: #bb2649;
+    box-shadow: 0 0 5px #bb2649;
+  }
 `;
 const UserInputBox = styled.div`
   display: flex;
@@ -78,6 +83,11 @@ const UserInput = styled.input`
   border: 1px solid #dedede;
   border-radius: 5px;
   padding-left: 3%;
+  &:focus {
+    outline: none;
+    border: 1px solid #bb2649;
+    box-shadow: 0 0 5px #bb2649;
+  }
 `;
 const WishInput = styled.input`
   background-color: #f8f5ef;
@@ -89,5 +99,10 @@ const WishInput = styled.input`
   border: 1px solid #dedede;
   border-radius: 5px;
   padding-left: 3%;
+  &:focus {
+    outline: none;
+    border: 1px solid #bb2649;
+    box-shadow: 0 0 5px #bb2649;
+  }
 `;
 export default ContentInput;
