@@ -4,31 +4,14 @@ import styled from "styled-components";
 import SecularOne from "../../../Styles/fonts/SecularOne-Regular.ttf";
 import CustomBtn from "../../common/CustomBtn";
 import Nav from "../../common/Nav";
-import ContentListItem from "../../common/ContentListItem";
+import ContentListItem from "../../contents/ContentListItem";
 
 const Lending = () => {
   const navigate = useNavigate();
   return (
     <LendingContainer>
-      <Nav>
-        作心
-        <br />
-        一年
-        <CustomBtn
-          onClick={() => {
-            navigate("");
-          }}
-          width="78px"
-          height="35px"
-          fontSize="15px"
-        >
-          소원빌기
-        </CustomBtn>
-      </Nav>
-      <ContentListItem>
-        <h4>올해는 돈 많이 벌게 해주세요</h4>
-        <h5>홍길동</h5>
-      </ContentListItem>
+      <Nav />
+      <ContentListItem />
       <LendingTitle>
         作心
         <br />

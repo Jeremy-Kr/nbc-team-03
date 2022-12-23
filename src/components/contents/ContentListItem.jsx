@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-export default styled.div`
+const ContentListItem = () => {
+  return (
+    <ContentListItemWrapper>
+      <h4>올해는 돈 많이 벌게 해주세요</h4>
+      <h5>홍길동</h5>
+    </ContentListItemWrapper>
+  );
+};
+
+const ContentListItemWrapper = styled.div`
   margin-top: 12px;
   padding-left: 20px;
   display: flex;
@@ -19,3 +28,5 @@ export default styled.div`
     cursor: pointer;
   }
 `;
+
+export default ContentListItem;
