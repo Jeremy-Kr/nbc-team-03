@@ -16,20 +16,22 @@ const ContentItem = () => {
         ></AiOutlineCloseCircle>
         <AiFillEdit
           onClick={() => alert("수정")}
-          style={{ float: "right", marginRight: "10px", cursor: "pointer" }}
+          style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
         <CustomH2>프론트엔드 개발자로 취업하기</CustomH2>
-        <div style={{ float: "right", color: "#5E5E5E" }}>김채하</div>
+        <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
+          김채하
+        </div>
 
         <ul>
           <StyledItemSemiTitle>
             <span>
               <AiFillPushpin />
             </span>
-            &nbsp;이유
+            &nbsp;이루고 싶은 이유
           </StyledItemSemiTitle>
-          <li>코딩이 재미있어서</li>
-          <li>모아둔 돈이 떨어져서</li>
+          <StyledLi>코딩이 재미있어서</StyledLi>
+          <StyledLi>모아둔 돈이 떨어져서</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -38,9 +40,9 @@ const ContentItem = () => {
             </span>
             &nbsp;해야 할 일
           </StyledItemSemiTitle>
-          <li>매일 코딩테스트문제 1개씩 풀기</li>
-          <li>공식문서 읽어보기</li>
-          <li>사이드 프로젝트 만들기</li>
+          <StyledLi>매일 코딩테스트문제 1개씩 풀기</StyledLi>
+          <StyledLi>공식문서 읽어보기</StyledLi>
+          <StyledLi>사이드 프로젝트 만들기</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -49,8 +51,8 @@ const ContentItem = () => {
             </span>
             &nbsp;목표달성일
           </StyledItemSemiTitle>
-          <li>벚꽃피기 전에 취업!!</li>
-          <li>이 안되면 여름옷 입기 전까지..</li>
+          <StyledLi>벚꽃피기 전에 취업!!</StyledLi>
+          <StyledLi>이 안되면 여름옷 입기 전까지..</StyledLi>
         </ul>
       </StyledItemBox>
     </StyledTotalContainer>
@@ -78,12 +80,17 @@ const StyledItemBox = styled.div`
 `;
 const StyledItemSemiTitle = styled.div`
   font-weight: bold;
-  margin-bottom: 10px;
+  margin: 15px 0;
+  margin-top: 30px;
 `;
 
 const CustomH2 = styled.h2`
-  padding-bottom: 10px;
   font-size: 20px;
+  font-weight: bold;
+`;
+
+const StyledLi = styled.li`
+  margin: 10px 0;
 `;
 
 export default ContentItem;
