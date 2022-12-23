@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SecularOne from "../../Styles/fonts/SecularOne-Regular.ttf";
 import CustomBtn from "../common/CustomBtn";
+import Nav from "../../common/Nav";
+import ContentListItem from "../../contents/ContentListItem";
 
 const Lending = () => {
   const navigate = useNavigate();
   return (
     <LendingContainer>
+      <Nav />
+      <ContentListItem />
       <LendingTitle>
         作心
         <br />
