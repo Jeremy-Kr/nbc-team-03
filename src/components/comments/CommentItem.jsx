@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const CommentItem = () => {
+const CommentItem = ({ nickname, commentText, id }) => {
   return (
     <CommentItemWrapper>
       <CommentTextContainer>
-        <CommentTitle>올해는 돈 많이 벌게 해주세요</CommentTitle>
-        <CommentUser>홍길동</CommentUser>
+        <CommentTitle>{commentText}</CommentTitle>
+        <CommentUser>{nickname}</CommentUser>
       </CommentTextContainer>
       <img src="#" alt="수정" />
       <img src="#" alt="삭제" />

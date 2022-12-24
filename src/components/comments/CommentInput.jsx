@@ -1,22 +1,66 @@
-import React from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { postComments } from "../../redux/modules/comments";
 import CustomBtn from "../common/CustomBtn";
 
 const CommentInput = () => {
+  const dispatch = useDispatch();
+  const [commentNickname, setCommentNickname] = useState("");
+  const [commentPassword, setCommentPassword] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const handleNicknameOnChange = (e) => {
+    setCommentNickname(e.target.value);
+  };
+
+  const handlePasswordOnChange = (e) => {
+    setCommentPassword(e.target.value);
+  };
+
+  const handleTextOnChange = (e) => {
+    setCommentText(e.target.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const newComment = {
+      id: nanoid(),
+      // TODO: postId는 contents 기능 개발 이후 수정할 것
+      postId: "temptmeptmeptmetpemprmer",
+      nickname: commentNickname,
+      password: commentPassword,
+      commentText: commentText,
+    };
+    dispatch(postComments(newComment));
+  };
+
   return (
-    <InputsContainer>
+    <InputsContainer
+      onSubmit={(e) => {
+        handleOnSubmit(e);
+      }}
+    >
       <InputBoxContainer>
         <CustomInput
           width="157px"
           height="35px"
           type="text"
           placeholder="닉네임"
+          value={commentNickname}
+          onChange={(e) => {
+            handleNicknameOnChange(e);
+          }}
         />
         <CustomInput
           width="157px"
           height="35px"
           type="password"
           placeholder="비밀번호"
+          value={commentPassword}
+          onChange={(e) => {
+            handlePasswordOnChange(e);
+          }}
         />
       </InputBoxContainer>
       <InputBoxContainer>
@@ -25,8 +69,12 @@ const CommentInput = () => {
           height="35px"
           type="text"
           placeholder="댓글로 응원하기"
+          value={commentText}
+          onChange={(e) => {
+            handleTextOnChange(e);
+          }}
         />
-        <CustomBtn width="85px" height="35px" fontSize="16px">
+        <CustomBtn type="submit" width="85px" height="35px" fontSize="16px">
           응원하기
         </CustomBtn>
       </InputBoxContainer>
@@ -34,8 +82,8 @@ const CommentInput = () => {
   );
 };
 
-const InputsContainer = styled.div`
-  margin-bottom: 40px;
+const InputsContainer = styled.form`
+  margin-bottom: 26px;
 `;
 
 const CustomInput = styled.input`
