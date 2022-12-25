@@ -60,6 +60,13 @@ const CommentsContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   padding: 20px;
+  overflow: scroll;
+  // 스크롤바 숨기기
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
 `;
 
 export default Comment;
