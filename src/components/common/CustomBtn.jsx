@@ -11,4 +11,8 @@ export default styled.button`
   &:hover {
     cursor: pointer;
   }
+  &:disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+  }
 `;

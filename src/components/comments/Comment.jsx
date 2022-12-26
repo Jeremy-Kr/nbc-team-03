@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getComments } from "../../redux/modules/comments";
 import CommentInput from "./CommentInput";
 import CommentItem from "./CommentItem";
 
 const Comment = () => {
-  const commentsState = useSelector((state) => {
-    return state.comments;
-  });
+  const commentsState = useSelector((state) => state.comments);
   const dispatch = useDispatch();
 
   useEffect(() => {
     commentsState.commentsData.length === 0 && dispatch(getComments());
   }, [dispatch, commentsState]);
 
-  // TODO: postId는 contents 기능 개발 이후 수정할 것
+  const paramId = useParams().id;
+
   const validComments = commentsState.commentsData.filter(
-    (item) => item.postId === "temptmeptmeptmetpemprmer"
+    (item) => item.postId === paramId
   );
   return (
     <CommentWrapper>
@@ -29,17 +29,9 @@ const Comment = () => {
             nickname={item.nickname}
             commentText={item.commentText}
             id={item.id}
+            password={item.password}
           />
         ))}
-        {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "30px",
-          }}
-        >
-          <span>&lt; 1 2 3 4 &gt; </span>
-        </div> */}
       </CommentsContainer>
     </CommentWrapper>
   );
@@ -53,13 +45,19 @@ const CommentWrapper = styled.div`
 
 const CommentsContainer = styled.div`
   border-radius: 20px;
-  height: 500px;
+  max-height: 500px;
+  height: auto;
   width: 480px;
   margin-left: 5px;
   background-color: #f8f5ef;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   padding: 20px;
+  overflow: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default Comment;
