@@ -16,6 +16,10 @@ const ContentItem = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(__getSelectedContent(paramId));
+  }, []);
+
+  useEffect(() => {
     if (contents.content?.id !== paramId) {
       dispatch(__getSelectedContent(paramId));
     }
