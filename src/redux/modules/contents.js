@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const name = "contents";
+const name = "contents";
 
 const initialState = {
   contents: [],
@@ -16,7 +16,7 @@ export const postContent = createAsyncThunk(
     { fulfillWithValue, rejectWithValue }
   ) => {
     try {
-      const res = await axios.post("http://localhost:3001/content", {
+      await axios.post("http://localhost:3001/content", {
         id: nanoid(),
         nickname,
         password,
@@ -24,8 +24,8 @@ export const postContent = createAsyncThunk(
         contentWhy,
         contentHow,
         contentWhen,
-        comments: [],
       });
+      const res = axios.get("http://localhost:3001/content");
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -35,7 +35,7 @@ export const postContent = createAsyncThunk(
 // 추가한 thunk함수 - 목록가져오기
 export const __getContents = createAsyncThunk(
   "contents/getContents",
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const data = await axios.get("http://localhost:3001/content");
       return thunkAPI.fulfillWithValue(data.data);
@@ -48,22 +48,22 @@ export const __getContents = createAsyncThunk(
   }
 );
 
-
 const contentsSlice = createSlice({
-  name: "contents",
+  name,
   initialState,
   reducers: {},
   extraReducers: {
-    [postContent.pending]: (state, action) => {
+    [postContent.pending]: (state) => {
       state.isLoading = true;
     },
     [postContent.fulfilled]: (state, action) => {
-      console.log([...state.contentsData], action.payload);
       state.isLoading = false;
+      state.contents = action.payload;
     },
     [postContent.rejected]: (state, action) => {
       state.error = action.error;
       state.isLoading = false;
+    },
     [__getContents.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },

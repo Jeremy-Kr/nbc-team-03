@@ -62,12 +62,10 @@ const ContentInput = () => {
       contentWhenRef.current.focus();
       return;
     } else {
+      dispatch(postContent(newContent));
       alert("소원이 등록되었습니다🙏🏻");
       navigate("/home");
     }
-
-    //db.json에 newContent를 추가한다.
-    dispatch(postContent(newContent));
 
     //입력이 완료되면 모든 input창의 값을 초기화 시킨다.
     nicknameRef.current.value = "";
