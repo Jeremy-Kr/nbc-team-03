@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // const name = "contents";
@@ -9,6 +9,29 @@ const initialState = {
   error: null,
 };
 
+export const postContent = createAsyncThunk(
+  `${name}/postContent`,
+  async (
+    { nickname, password, contentTitle, contentWhy, contentHow, contentWhen },
+    { fulfillWithValue, rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.post("http://localhost:3001/content", {
+        id: nanoid(),
+        nickname,
+        password,
+        contentTitle,
+        contentWhy,
+        contentHow,
+        contentWhen,
+        comments: [],
+      });
+      return fulfillWithValue(res.data);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
 // 추가한 thunk함수 - 목록가져오기
 export const __getContents = createAsyncThunk(
   "contents/getContents",
@@ -24,27 +47,23 @@ export const __getContents = createAsyncThunk(
     }
   }
 );
-// 추가한 thunk함수2 - 상세보기페이지
-// export const __getContentById = createAsyncThunk(
-//   "contents/getContentById",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await axios.get("http://localhost:3001/content");
-//       console.log("뜨니", data.data);
-//       return thunkAPI.fulfillWithValue(
-//         data.data.filter((item) => item.id === "2")
-//       );
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+
 
 const contentsSlice = createSlice({
   name: "contents",
   initialState,
   reducers: {},
   extraReducers: {
+    [postContent.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [postContent.fulfilled]: (state, action) => {
+      console.log([...state.contentsData], action.payload);
+      state.isLoading = false;
+    },
+    [postContent.rejected]: (state, action) => {
+      state.error = action.error;
+      state.isLoading = false;
     [__getContents.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
