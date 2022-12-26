@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { __getContents } from "../../redux/modules/contents";
+import { __getSelectedContent } from "../../redux/modules/contents";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import {
   AiFillEdit,
   AiOutlineCloseCircle,
@@ -12,16 +13,12 @@ import {
 const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    contents.contents.length === 0 && dispatch(__getContents());
-  }, [dispatch, contents]);
-
   const paramId = useParams().id;
 
-  const filteredContent = contents.contents.filter(
-    (item) => item.id === paramId
-  )[0];
+  useEffect(() => {
+    contents.content && dispatch(__getSelectedContent(paramId));
+  }, [dispatch, contents]);
+
   return (
     <StyledTotalContainer>
       <StyledItemBox>
@@ -33,9 +30,9 @@ const ContentItem = () => {
           onClick={() => alert("수정")}
           style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
-        <CustomH2>{filteredContent && filteredContent.contentTitle}</CustomH2>
+        <CustomH2>{contents.content && contents.content.contentTitle}</CustomH2>
         <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
-          {filteredContent && filteredContent.nickname}
+          {contents.content && contents.content.nickname}
         </div>
 
         <ul>
@@ -45,7 +42,7 @@ const ContentItem = () => {
             </span>
             &nbsp;이유
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentWhy}</StyledLi>
+          <StyledLi>{contents.content && contents.content.contentWhy}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -54,7 +51,7 @@ const ContentItem = () => {
             </span>
             &nbsp;할일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentHow}</StyledLi>
+          <StyledLi>{contents.content && contents.content.contentHow}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -63,7 +60,9 @@ const ContentItem = () => {
             </span>
             &nbsp;목표달성일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentWhen}</StyledLi>
+          <StyledLi>
+            {contents.content && contents.content.contentWhen}
+          </StyledLi>
         </ul>
       </StyledItemBox>
     </StyledTotalContainer>

@@ -14,7 +14,6 @@ export const getComments = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await axios.get("http://localhost:3001/comments");
-      console.log(res.data);
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -27,7 +26,6 @@ export const postComments = createAsyncThunk(
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await axios.post("http://localhost:3001/comments", payload);
-      console.log(res.data);
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);

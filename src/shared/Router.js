@@ -6,6 +6,7 @@ import Layout from "../components/common/Layout";
 import ContentInput from "../components/contents/ContentInput";
 import ContentsList from "../components/contents/ContentsList";
 import ContentDetail from "../components/contents/ContentDetail";
+import ContentUpdate from "../components/contents/ContentUpdate";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
             <Route path="/home" element={<ContentsList />} />
             <Route path="/input" element={<ContentInput />} />
             <Route path="/content/:id" element={<ContentDetail />} />
+            <Route path="/content/Update/:id" element={<ContentUpdate />} />
           </Route>
         </Routes>
       </BrowserRouter>
