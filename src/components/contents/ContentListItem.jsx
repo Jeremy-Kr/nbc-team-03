@@ -1,17 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { __getContents } from "../../redux/modules/contents";
+// import { nanoid } from "@reduxjs/toolkit";
 
 const ContentListItem = () => {
   const navigate = useNavigate();
+
+  const contents = useSelector((state) => state.contents);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getContents());
+  }, [dispatch]);
+
   return (
-    <ContentListItemWrapper
-      onClick={() => {
-        navigate("/content/temp");
-      }}
-    >
-      <ContentTitle>올해는 돈 많이 벌게 해주세요</ContentTitle>
-      <ContentNickname>홍길동</ContentNickname>
-    </ContentListItemWrapper>
+    <>
+      {contents.contents.map((item) => (
+        <ContentListItemWrapper
+          onClick={() => {
+            navigate(`/content/${item.id}`);
+          }}
+        >
+          <ContentTitle key={item.id}>{item.contentTitle}</ContentTitle>
+          <ContentNickname>{item.nickname}</ContentNickname>
+        </ContentListItemWrapper>
+      ))}
+    </>
   );
 };
 

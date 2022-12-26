@@ -11,13 +11,7 @@ const ContentsList = () => {
         <ContentListTitle>🎊 2023 작심 목록 🎊</ContentListTitle>
         <CustomHr />
         <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
-        <ContentListItem />
+
         <br />
         <br />
         <PageNation>&lt; &#183; &#183; &#183; &#183; &gt; </PageNation>

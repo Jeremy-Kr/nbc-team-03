@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { __getContents } from "../../redux/modules/contents";
+import { useParams } from "react-router-dom";
 import {
   AiFillEdit,
   AiOutlineCloseCircle,
@@ -7,6 +10,17 @@ import {
 } from "react-icons/ai";
 
 const ContentItem = () => {
+  const contents = useSelector((state) => state.contents);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getContents());
+  }, [dispatch]);
+
+  const paramId = useParams().id;
+
+  const filteredContent = contents.contents.filter(
+    (item) => item.id === paramId
+  )[0];
   return (
     <StyledTotalContainer>
       <StyledItemBox>
@@ -18,9 +32,9 @@ const ContentItem = () => {
           onClick={() => alert("수정")}
           style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
-        <CustomH2>프론트엔드 개발자로 취업하기</CustomH2>
+        <CustomH2>{filteredContent.contentTitle}</CustomH2>
         <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
-          김채하
+          {filteredContent.nickname}
         </div>
 
         <ul>
@@ -28,21 +42,18 @@ const ContentItem = () => {
             <span>
               <AiFillPushpin />
             </span>
-            &nbsp;이루고 싶은 이유
+            &nbsp;이유
           </StyledItemSemiTitle>
-          <StyledLi>코딩이 재미있어서</StyledLi>
-          <StyledLi>모아둔 돈이 떨어져서</StyledLi>
+          <StyledLi>{filteredContent.contentWhy}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
             <span>
               <AiFillPushpin />
             </span>
-            &nbsp;해야 할 일
+            &nbsp;할일
           </StyledItemSemiTitle>
-          <StyledLi>매일 코딩테스트문제 1개씩 풀기</StyledLi>
-          <StyledLi>공식문서 읽어보기</StyledLi>
-          <StyledLi>사이드 프로젝트 만들기</StyledLi>
+          <StyledLi>{filteredContent.contentHow}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -51,8 +62,7 @@ const ContentItem = () => {
             </span>
             &nbsp;목표달성일
           </StyledItemSemiTitle>
-          <StyledLi>벚꽃피기 전에 취업!!</StyledLi>
-          <StyledLi>이 안되면 여름옷 입기 전까지..</StyledLi>
+          <StyledLi>{filteredContent.contentWhen}</StyledLi>
         </ul>
       </StyledItemBox>
     </StyledTotalContainer>
