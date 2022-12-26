@@ -1,18 +1,11 @@
-import { nanoid } from "@reduxjs/toolkit";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { __getSelectedContent } from "../../redux/modules/contents";
 import CustomBtn from "../common/CustomBtn";
 import Nav from "../common/Nav";
-import useInputRef from "../hooks/useInputRef";
 
 const ContentUpdate = () => {
   const contents = useSelector((state) => state.contents);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const paramId = useParams().id;
   // console.log("contents.contents:", contents.contents);
   // console.log("paramId:", paramId);
   // useEffect(() => {

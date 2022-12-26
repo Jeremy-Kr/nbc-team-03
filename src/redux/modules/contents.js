@@ -4,7 +4,7 @@ import axios from "axios";
 const name = "contents";
 
 const initialState = {
-  content: {},
+  content: null,
   contents: [],
   isLoading: false,
   error: null,

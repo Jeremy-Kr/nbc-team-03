@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { __getSelectedContent } from "../../redux/modules/contents";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   AiFillEdit,
   AiOutlineCloseCircle,
@@ -14,10 +13,13 @@ const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
   const paramId = useParams().id;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    contents.content && dispatch(__getSelectedContent(paramId));
-  }, [dispatch, contents]);
+    if (contents.content?.id !== paramId) {
+      dispatch(__getSelectedContent(paramId));
+    }
+  }, [dispatch, contents, paramId]);
 
   return (
     <StyledTotalContainer>
@@ -27,7 +29,7 @@ const ContentItem = () => {
           style={{ float: "right", cursor: "pointer" }}
         ></AiOutlineCloseCircle>
         <AiFillEdit
-          onClick={() => alert("수정")}
+          onClick={() => navigate(`/content/Update/${paramId}`)}
           style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
         <CustomH2>{contents.content && contents.content.contentTitle}</CustomH2>
