@@ -12,9 +12,10 @@ import {
 const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(__getContents());
-  }, [dispatch]);
+    contents.contents.length === 0 && dispatch(__getContents());
+  }, [dispatch, contents]);
 
   const paramId = useParams().id;
 
@@ -32,9 +33,9 @@ const ContentItem = () => {
           onClick={() => alert("수정")}
           style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
-        <CustomH2>{filteredContent.contentTitle}</CustomH2>
+        <CustomH2>{filteredContent && filteredContent.contentTitle}</CustomH2>
         <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
-          {filteredContent.nickname}
+          {filteredContent && filteredContent.nickname}
         </div>
 
         <ul>
@@ -44,7 +45,7 @@ const ContentItem = () => {
             </span>
             &nbsp;이유
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent.contentWhy}</StyledLi>
+          <StyledLi>{filteredContent && filteredContent.contentWhy}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -53,7 +54,7 @@ const ContentItem = () => {
             </span>
             &nbsp;할일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent.contentHow}</StyledLi>
+          <StyledLi>{filteredContent && filteredContent.contentHow}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -62,7 +63,7 @@ const ContentItem = () => {
             </span>
             &nbsp;목표달성일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent.contentWhen}</StyledLi>
+          <StyledLi>{filteredContent && filteredContent.contentWhen}</StyledLi>
         </ul>
       </StyledItemBox>
     </StyledTotalContainer>
