@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { __getContents } from "../../redux/modules/contents";
-import { useParams } from "react-router-dom";
+import { __getSelectedContent } from "../../redux/modules/contents";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   AiFillEdit,
   AiOutlineCloseCircle,
@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
+  const paramId = useParams().id;
+  const navigate = useNavigate();
 
   const paramId = useParams().id;
 
@@ -22,13 +24,15 @@ const ContentItem = () => {
   };
 
   useEffect(() => {
-    contents.contents.length === 0 && dispatch(__getContents());
-  }, [dispatch, contents]);
+    dispatch(__getSelectedContent(paramId));
+  }, []);
 
-  const filteredContent = contents.contents.filter(
-    (item) => item.id === paramId
-  )[0];
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (contents.content?.id !== paramId) {
+      dispatch(__getSelectedContent(paramId));
+    }
+  }, [dispatch, contents, paramId]);
+
   return (
     <StyledTotalContainer>
       <StyledItemBox>
@@ -59,12 +63,12 @@ const ContentItem = () => {
           style={{ float: "right", cursor: "pointer" }}
         ></AiOutlineCloseCircle>
         <AiFillEdit
-          onClick={() => alert("수정")}
+          onClick={() => navigate(`/content/Update/${paramId}`)}
           style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
         ></AiFillEdit>
-        <CustomH2>{filteredContent && filteredContent.contentTitle}</CustomH2>
+        <CustomH2>{contents.content && contents.content.contentTitle}</CustomH2>
         <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
-          {filteredContent && filteredContent.nickname}
+          {contents.content && contents.content.nickname}
         </div>
 
         <ul>
@@ -74,7 +78,7 @@ const ContentItem = () => {
             </span>
             &nbsp;이유
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentWhy}</StyledLi>
+          <StyledLi>{contents.content && contents.content.contentWhy}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -83,7 +87,7 @@ const ContentItem = () => {
             </span>
             &nbsp;할일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentHow}</StyledLi>
+          <StyledLi>{contents.content && contents.content.contentHow}</StyledLi>
         </ul>
         <ul>
           <StyledItemSemiTitle>
@@ -92,7 +96,9 @@ const ContentItem = () => {
             </span>
             &nbsp;목표달성일
           </StyledItemSemiTitle>
-          <StyledLi>{filteredContent && filteredContent.contentWhen}</StyledLi>
+          <StyledLi>
+            {contents.content && contents.content.contentWhen}
+          </StyledLi>
         </ul>
       </StyledItemBox>
     </StyledTotalContainer>
