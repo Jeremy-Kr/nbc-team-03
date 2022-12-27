@@ -33,10 +33,10 @@ const ContentInput = () => {
       contentWhy: contentWhyRef.current.value,
       contentHow: contentHowRef.current.value,
       contentWhen: contentWhenRef.current.value,
-      date: Date.now(),
+      createdDate: Date.now(),
     };
 
-    // 값이 입력되지 않으면 alret창을 띄운다.
+    // 값이 입력되지 않으면 alert창을 띄운다.
     if (!nicknameRef.current.value) {
       alert("닉네임을 입력해주세요.");
       nicknameRef.current.focus();

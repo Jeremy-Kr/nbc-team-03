@@ -9,7 +9,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-
+// 글쓰기
 export const postContent = createAsyncThunk(
   `${name}/postContent`,
   async (
@@ -25,6 +25,7 @@ export const postContent = createAsyncThunk(
         contentWhy,
         contentHow,
         contentWhen,
+        createdDate: Date.now(),
       });
       const res = axios.get("http://localhost:3001/content");
       return fulfillWithValue(res.data);
@@ -38,7 +39,9 @@ export const __getContents = createAsyncThunk(
   "contents/getContents",
   async (_, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/content");
+      const data = await axios.get(
+        "http://localhost:3001/content?_sort=createdDate&_order=desc"
+      );
       return thunkAPI.fulfillWithValue(data.data);
       // fulfillWithValue = Promise에서 resolve된 경우(네트워크요청이 성공한경우) dispatch해주는 API
       // 인자로는 payload를 넣는다
