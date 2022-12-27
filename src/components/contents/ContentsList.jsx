@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Nav from "../common/Nav";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import ContentListItem from "./ContentListItem";
+import { __getContents } from "../../redux/modules/contents";
+import ContentFooter from "../common/ContentFooter";
 
 const ContentsList = () => {
+  const contents = useSelector((state) => state.contents);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+  const dispatch = useDispatch();
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const currentPosts = contents.contents
+    ? contents.contents.slice(firstPostIndex, lastPostIndex)
+    : null;
+
+  useEffect(() => {
+    dispatch(__getContents());
+  }, [dispatch]);
+
   return (
     <ContentsListWrapper>
       <Nav />
       <ContentsListItemContainer>
         <ContentListTitle>🎊 2023 작심 목록 🎊</ContentListTitle>
         <CustomHr />
-        <ContentListItem />
+        {currentPosts && <ContentListItem contents={currentPosts} />}
 
         <br />
         <br />
-        <PageNation>&lt; &#183; &#183; &#183; &#183; &gt; </PageNation>
-        <br />
-        <DayCounter> 2023년까지 D - 000</DayCounter>
+        {currentPosts && (
+          <ContentFooter
+            totalContents={contents.contents.length}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        )}
       </ContentsListItemContainer>
     </ContentsListWrapper>
   );
@@ -51,15 +76,6 @@ const CustomHr = styled.hr`
   background-color: #35353f;
   border-radius: 5px;
   margin: 15px 0;
-`;
-
-const PageNation = styled.span`
-  font-size: 30px;
-`;
-
-const DayCounter = styled.span`
-  margin-top: 15px;
-  font-size: 20px;
 `;
 
 export default ContentsList;

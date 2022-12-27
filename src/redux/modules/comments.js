@@ -33,6 +33,38 @@ export const postComments = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  `${name}/deleteComment`,
+  async (commentId, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      await axios.delete(`http://localhost:3001/comments/${commentId}`);
+      const res = await axios.get("http://localhost:3001/comments");
+      return fulfillWithValue(res.data);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const patchComment = createAsyncThunk(
+  `${name}/patchComment`,
+  async (
+    { commentId, commentText, nickname },
+    { fulfillWithValue, rejectWithValue }
+  ) => {
+    try {
+      await axios.patch(`http://localhost:3001/comments/${commentId}`, {
+        commentText,
+        nickname,
+      });
+      const res = await axios.get("http://localhost:3001/comments");
+      return fulfillWithValue(res.data);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 const commentsSlice = createSlice({
   name,
   initialState,
@@ -58,6 +90,28 @@ const commentsSlice = createSlice({
       state.isLoading = false;
     },
     [postComments.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+    [deleteComment.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [deleteComment.fulfilled]: (state, action) => {
+      state.commentsData = action.payload;
+      state.isLoading = false;
+    },
+    [deleteComment.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+    [patchComment.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [patchComment.fulfilled]: (state, action) => {
+      state.commentsData = action.payload;
+      state.isLoading = false;
+    },
+    [patchComment.rejected]: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     },
