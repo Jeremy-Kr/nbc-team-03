@@ -1,15 +1,32 @@
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComments } from "../../redux/modules/comments";
 import CustomBtn from "../common/CustomBtn";
 
 const CommentInput = () => {
   const dispatch = useDispatch();
+  const paramId = useParams().id;
+
   const [commentNickname, setCommentNickname] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
   const [commentText, setCommentText] = useState("");
+
+  useEffect(() => {
+    if (commentNickname && commentPassword && commentText) {
+      submitButtonRef.current.disabled = false;
+    }
+    if (!commentNickname || !commentPassword || !commentText) {
+      submitButtonRef.current.disabled = true;
+    }
+  }, [commentNickname, commentPassword, commentText]);
+
+  const nicknameRef = useRef();
+  const passwordRef = useRef();
+  const textRef = useRef();
+  const submitButtonRef = useRef();
   const handleNicknameOnChange = (e) => {
     setCommentNickname(e.target.value);
   };
@@ -24,15 +41,30 @@ const CommentInput = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (!commentNickname) {
+      nicknameRef.current.focus();
+      return alert("닉네임을 입력하세요");
+    }
+    if (!commentPassword) {
+      passwordRef.current.focus();
+      return alert("비밀번호를 입력하세요");
+    }
+    if (!commentText) {
+      textRef.current.focus();
+      return alert("댓글을 입력하세요");
+    }
     const newComment = {
       id: nanoid(),
-      // TODO: postId는 contents 기능 개발 이후 수정할 것
-      postId: "temptmeptmeptmetpemprmer",
+      postId: paramId,
       nickname: commentNickname,
       password: commentPassword,
       commentText: commentText,
     };
     dispatch(postComments(newComment));
+    setCommentNickname("");
+    setCommentPassword("");
+    setCommentText("");
+    return alert("코멘트 등록이 완료되었습니다.");
   };
 
   return (
@@ -48,6 +80,7 @@ const CommentInput = () => {
           type="text"
           placeholder="닉네임"
           value={commentNickname}
+          ref={nicknameRef}
           onChange={(e) => {
             handleNicknameOnChange(e);
           }}
@@ -58,6 +91,7 @@ const CommentInput = () => {
           type="password"
           placeholder="비밀번호"
           value={commentPassword}
+          ref={passwordRef}
           onChange={(e) => {
             handlePasswordOnChange(e);
           }}
@@ -70,11 +104,19 @@ const CommentInput = () => {
           type="text"
           placeholder="댓글로 응원하기"
           value={commentText}
+          ref={textRef}
           onChange={(e) => {
             handleTextOnChange(e);
           }}
         />
-        <CustomBtn type="submit" width="85px" height="35px" fontSize="16px">
+        <CustomBtn
+          ref={submitButtonRef}
+          type="submit"
+          width="85px"
+          height="35px"
+          fontSize="16px"
+          disabled={true}
+        >
           응원하기
         </CustomBtn>
       </InputBoxContainer>
