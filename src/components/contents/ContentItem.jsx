@@ -11,7 +11,7 @@ import {
 import { deleteContent } from "../../redux/modules/contents";
 import { useNavigate } from "react-router-dom";
 
-const ContentItem = ({}) => {
+const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
 
@@ -34,9 +34,9 @@ const ContentItem = ({}) => {
       <StyledItemBox>
         <AiOutlineCloseCircle
           onClick={() => {
-            let valid = false;
+            const valid = false;
             do {
-              let confirm = prompt("삭제하시려면 비밀번호를 입력하세요.");
+              const confirm = prompt("삭제하시려면 비밀번호를 입력하세요.");
               switch (confirm) {
                 case "123":
                   alert("비밀번호가 일치합니다.");

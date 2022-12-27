@@ -80,7 +80,7 @@ const contentsSlice = createSlice({
       state.isLoading = true;
     },
     [deleteContent.fulfilled]: (state, action) => {
-      let newComment = state.useInputRef.filter(
+      const newComment = state.useInputRef.filter(
         (item) => item.id !== action.payload
       );
       state.useInputRef = newComment;
