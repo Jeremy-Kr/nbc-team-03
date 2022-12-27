@@ -8,7 +8,7 @@ const ContentFooter = ({
   setCurrentPage,
   currentPage,
 }) => {
-  let pages = [];
+  const pages = [];
   for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
     pages.push(i);
   }
