@@ -50,9 +50,8 @@ const ContentItem = () => {
           <span>
             <StyledStarIcon />
           </span>
-          &nbsp; 소원을 이루고 싶은 이유
+          &nbsp;&nbsp;소원을 이루고 싶은 이유&nbsp;&nbsp;&nbsp;
         </StyledItemSemiTitle>
-        <CustomHr />
         <StyledSpan>
           {contents.content && contents.content.contentWhy}
         </StyledSpan>
@@ -60,9 +59,8 @@ const ContentItem = () => {
           <span>
             <StyledStarIcon />
           </span>
-          &nbsp; 소원을 이루기 위해 하는 노력
+          &nbsp;&nbsp;소원을 이루기 위해 하는 노력&nbsp;&nbsp;&nbsp;
         </StyledItemSemiTitle>
-        <CustomHr />
         <StyledSpan>
           {contents.content && contents.content.contentHow}
         </StyledSpan>
@@ -70,9 +68,8 @@ const ContentItem = () => {
           <span>
             <StyledStarIcon />
           </span>
-          &nbsp; 소원 이루어 지는날
+          &nbsp;&nbsp;소원 이루어 지는날&nbsp;&nbsp;&nbsp;
         </StyledItemSemiTitle>
-        <CustomHr />
         <StyledSpan>
           {contents.content && contents.content.contentWhen}
         </StyledSpan>
@@ -140,12 +137,17 @@ const StyledItemSemiTitle = styled.div`
   margin: 15px 0;
   margin-top: 30px;
   font-size: 17px;
-  color: #212127;
+  color: #35353f;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-color: #35353fad;
+  margin-bottom: 22px;
 `;
 
 const StyledStarIcon = styled(GiFallingStar)`
   color: #f28137;
   scale: 1.05;
+  margin-right: 6px;
 `;
 
 const CustomH2 = styled.h2`
@@ -167,21 +169,12 @@ const NameContainer = styled.div`
   align-items: center;
   float: right;
   color: #5e5e5e;
-  margin-top: 10px;
+  margin-top: 50px;
 `;
 
 const LuckyBag = styled.img`
   height: 15px;
   margin-left: 6px;
-`;
-
-const CustomHr = styled.hr`
-  width: 65%;
-  border: none;
-  height: 1px;
-  background-color: #35353f;
-  border-radius: 5px;
-  margin: 14px 0;
 `;
 
 export default ContentItem;

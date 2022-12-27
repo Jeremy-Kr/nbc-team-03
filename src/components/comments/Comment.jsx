@@ -45,7 +45,7 @@ const CommentWrapper = styled.div`
 
 const CommentsContainer = styled.div`
   border-radius: 20px;
-  max-height: 420px;
+  max-height: 400px;
   height: auto;
   width: 480px;
   margin-left: 5px;
