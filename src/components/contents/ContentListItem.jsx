@@ -1,23 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { __getContents } from "../../redux/modules/contents";
 
-const ContentListItem = () => {
+const ContentListItem = ({ contents }) => {
   const navigate = useNavigate();
-
-  const contents = useSelector((state) => state.contents);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(__getContents());
-  }, [dispatch]);
 
   return (
     <>
-      {contents.contents ? (
-        contents.contents.map((item) => (
+      {contents ? (
+        contents.map((item) => (
           <ContentListItemWrapper
             key={item.id}
             onClick={() => {
