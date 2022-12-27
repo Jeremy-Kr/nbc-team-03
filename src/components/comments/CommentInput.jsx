@@ -103,12 +103,13 @@ const CommentInput = () => {
           width="330px"
           height="35px"
           type="text"
-          placeholder="댓글로 응원하기"
+          placeholder="댓글로 응원하기 (최대 36자)"
           value={commentText}
           ref={textRef}
           onChange={(e) => {
             handleTextOnChange(e);
           }}
+          max="36"
         />
         <CustomBtn
           ref={submitButtonRef}

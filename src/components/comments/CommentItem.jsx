@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { AiFillEdit, AiOutlineCloseCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { deleteComment, patchComment } from "../../redux/modules/comments";
 import CustomBtn from "../common/CustomBtn";
+import { TfiPencilAlt, TfiTrash } from "react-icons/tfi";
 
 const CommentItem = ({ nickname, commentText, id, password }) => {
   const dispatch = useDispatch();
@@ -100,12 +100,12 @@ const CommentItem = ({ nickname, commentText, id, password }) => {
             <CommentUser>{nickname}</CommentUser>
           </CommentTextContainer>
           <CommentIconContainer>
-            <CommentEditIcon
+            <StyledEditIcon
               onClick={() => {
                 handleEditIconClick();
               }}
             />
-            <CommentDeleteIcon
+            <StyledDeleteIcon
               onClick={() => {
                 handleDeleteIconClick();
               }}
@@ -152,14 +152,28 @@ const CommentIconContainer = styled.div`
   justify-content: space-around;
 `;
 
-const CommentEditIcon = styled(AiFillEdit)`
+const StyledEditIcon = styled(TfiPencilAlt)`
   scale: 1.2;
+  float: right;
+  margin-right: 15px;
   cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #bb2649;
+    scale: 1.3;
+  }
 `;
 
-const CommentDeleteIcon = styled(AiOutlineCloseCircle)`
-  scale: 1.2;
+const StyledDeleteIcon = styled(TfiTrash)`
+  margin-top: 0.5px;
+  scale: 1.4;
+  float: right;
   cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #bb2649;
+    scale: 1.5;
+  }
 `;
 
 const CustomInput = styled.input`

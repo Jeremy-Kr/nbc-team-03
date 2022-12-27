@@ -18,9 +18,9 @@ const ContentItem = () => {
     if (confirmPassword === contents.content.password) {
       dispatch(deleteContent(paramId));
       alert("삭제 되었습니다.");
-      navigate("/home");
+      return navigate("/home");
     } else {
-      alert("취소 되었습니다.");
+      return alert("비밀번호를 확인 해 주세요.");
     }
   };
 
@@ -158,6 +158,8 @@ const StyledSpan = styled.span`
   margin: 10px 0;
   font-size: 15px;
   color: #212127;
+  width: 80%;
+  word-wrap: break-word;
 `;
 
 const NameContainer = styled.div`
