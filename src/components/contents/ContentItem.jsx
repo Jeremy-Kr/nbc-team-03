@@ -8,25 +8,54 @@ import {
   AiOutlineCloseCircle,
   AiFillPushpin,
 } from "react-icons/ai";
+import { deleteContent } from "../../redux/modules/contents";
+import { useNavigate } from "react-router-dom";
 
-const ContentItem = () => {
+const ContentItem = ({}) => {
   const contents = useSelector((state) => state.contents);
   const dispatch = useDispatch();
+
+  const paramId = useParams().id;
+
+  const handleOnDeleteClick = () => {
+    dispatch(deleteContent(paramId));
+  };
 
   useEffect(() => {
     contents.contents.length === 0 && dispatch(__getContents());
   }, [dispatch, contents]);
 
-  const paramId = useParams().id;
-
   const filteredContent = contents.contents.filter(
     (item) => item.id === paramId
   )[0];
+  const navigate = useNavigate();
   return (
     <StyledTotalContainer>
       <StyledItemBox>
         <AiOutlineCloseCircle
-          onClick={() => alert("삭제")}
+          onClick={() => {
+            let valid = false;
+            do {
+              let confirm = prompt("삭제하시려면 비밀번호를 입력하세요.");
+              switch (confirm) {
+                case "123":
+                  alert("비밀번호가 일치합니다.");
+                  valid = true;
+                  break;
+                default:
+                  alert("잘못된 비밀번호입니다.");
+                  valid = false;
+                  break;
+              }
+            } while (!valid);
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+              alert("삭제되었습니다.");
+              handleOnDeleteClick();
+              navigate("/home");
+            } else {
+              alert("취소되었습니다.");
+            }
+          }}
           style={{ float: "right", cursor: "pointer" }}
         ></AiOutlineCloseCircle>
         <AiFillEdit

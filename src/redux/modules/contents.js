@@ -48,6 +48,18 @@ export const __getContents = createAsyncThunk(
   }
 );
 
+export const deleteContent = createAsyncThunk(
+  `${name}/deleteContent`,
+  async (paramId, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      await axios.delete(`http://localhost:3001/content/${paramId}`);
+      return fulfillWithValue(paramId);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 const contentsSlice = createSlice({
   name,
   initialState,
@@ -61,6 +73,20 @@ const contentsSlice = createSlice({
       state.contents = action.payload;
     },
     [postContent.rejected]: (state, action) => {
+      state.error = action.error;
+      state.isLoading = false;
+    },
+    [deleteContent.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteContent.fulfilled]: (state, action) => {
+      let newComment = state.useInputRef.filter(
+        (item) => item.id !== action.payload
+      );
+      state.useInputRef = newComment;
+      state.isLoading = false;
+    },
+    [deleteContent.rejected]: (state, action) => {
       state.error = action.error;
       state.isLoading = false;
     },
