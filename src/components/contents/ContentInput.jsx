@@ -33,7 +33,7 @@ const ContentInput = () => {
       contentWhy: contentWhyRef.current.value,
       contentHow: contentHowRef.current.value,
       contentWhen: contentWhenRef.current.value,
-      comments: [],
+      date: Date.now(),
     };
 
     // 값이 입력되지 않으면 alret창을 띄운다.

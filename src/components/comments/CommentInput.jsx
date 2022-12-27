@@ -59,6 +59,7 @@ const CommentInput = () => {
       nickname: commentNickname,
       password: commentPassword,
       commentText: commentText,
+      date: Date.now(),
     };
     dispatch(postComments(newComment));
     setCommentNickname("");

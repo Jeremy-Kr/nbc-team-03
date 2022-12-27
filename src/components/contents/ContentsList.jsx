@@ -28,7 +28,7 @@ const ContentsList = () => {
     <ContentsListWrapper>
       <Nav />
       <ContentsListItemContainer>
-        <ContentListTitle>🎊 2023 작심 목록 🎊</ContentListTitle>
+        <ContentListTitle>🎊 2023 소원 목록 🎊</ContentListTitle>
         <CustomHr />
         {currentPosts && <ContentListItem contents={currentPosts} />}
 
