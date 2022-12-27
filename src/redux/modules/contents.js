@@ -17,7 +17,7 @@ export const postContent = createAsyncThunk(
     { fulfillWithValue, rejectWithValue }
   ) => {
     try {
-      await axios.post("http://localhost:3001/content", {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/content`, {
         id: nanoid(),
         nickname,
         password,
@@ -27,7 +27,9 @@ export const postContent = createAsyncThunk(
         contentWhen,
         createdDate: Date.now(),
       });
-      const res = axios.get("http://localhost:3001/content");
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/content?_sort=createdDate&_order=desc`
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -40,7 +42,7 @@ export const __getContents = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const data = await axios.get(
-        "http://localhost:3001/content?_sort=createdDate&_order=desc"
+        `${process.env.REACT_APP_SERVER_URL}/content?_sort=createdDate&_order=desc`
       );
       return thunkAPI.fulfillWithValue(data.data);
       // fulfillWithValue = Promise에서 resolve된 경우(네트워크요청이 성공한경우) dispatch해주는 API
@@ -56,7 +58,9 @@ export const __getSelectedContent = createAsyncThunk(
   "contents/getSelectedContent",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(`http://localhost:3001/content/${payload}`);
+      const data = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/content/${payload}`
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -68,8 +72,13 @@ export const patchContent = createAsyncThunk(
   "contents/patchContent",
   async ({ newContent, paramId }, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/content/${paramId}`, newContent);
-      const res = axios.get("http://localhost:3001/content");
+      await axios.patch(
+        `${process.env.REACT_APP_SERVER_URL}/content/${paramId}`,
+        newContent
+      );
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/content?_sort=createdDate&_order=desc`
+      );
       return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -81,8 +90,12 @@ export const deleteContent = createAsyncThunk(
   `${name}/deleteContent`,
   async (paramId, { fulfillWithValue, rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:3001/content/${paramId}`);
-      const res = axios.get("http://localhost:3001/content");
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/content/${paramId}`
+      );
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/content?_sort=createdDate&_order=desc`
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
