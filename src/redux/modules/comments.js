@@ -14,7 +14,7 @@ export const getComments = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+        `${process.env.REACT_APP_SERVER_URL}/comments?_sort=createdDate&_order=desc`
       );
       return fulfillWithValue(res.data);
     } catch (e) {
@@ -27,9 +27,9 @@ export const postComments = createAsyncThunk(
   `${name}/postComments`,
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
-      await axios.post("http://localhost:3001/comments", payload);
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/comments`, payload);
       const res = await axios.get(
-        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+        `${process.env.REACT_APP_SERVER_URL}/comments?_sort=createdDate&_order=desc`
       );
       return fulfillWithValue(res.data);
     } catch (e) {
@@ -42,9 +42,11 @@ export const deleteComment = createAsyncThunk(
   `${name}/deleteComment`,
   async (commentId, { fulfillWithValue, rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
+      await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`
+      );
       const res = await axios.get(
-        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+        `${process.env.REACT_APP_SERVER_URL}/comments?_sort=createdDate&_order=desc`
       );
       return fulfillWithValue(res.data);
     } catch (e) {
@@ -60,12 +62,15 @@ export const patchComment = createAsyncThunk(
     { fulfillWithValue, rejectWithValue }
   ) => {
     try {
-      await axios.patch(`http://localhost:3001/comments/${commentId}`, {
-        commentText,
-        nickname,
-      });
+      await axios.patch(
+        `${process.env.REACT_APP_SERVER_URL}/comments/${commentId}`,
+        {
+          commentText,
+          nickname,
+        }
+      );
       const res = await axios.get(
-        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+        `${process.env.REACT_APP_SERVER_URL}/comments?_sort=createdDate&_order=desc`
       );
       return fulfillWithValue(res.data);
     } catch (e) {
