@@ -55,6 +55,7 @@ const ContentItem = () => {
         <StyledSpan>
           {contents.content && contents.content.contentWhy}
         </StyledSpan>
+        <CustomHr />
         <StyledItemSemiTitle>
           <span>
             <StyledStarIcon />
@@ -64,6 +65,7 @@ const ContentItem = () => {
         <StyledSpan>
           {contents.content && contents.content.contentHow}
         </StyledSpan>
+        <CustomHr />
         <StyledItemSemiTitle>
           <span>
             <StyledStarIcon />
@@ -135,13 +137,9 @@ const StyledItemSemiTitle = styled.div`
   display: flex;
   align-items: center;
   margin: 15px 0;
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 17px;
   color: #35353f;
-  text-decoration: underline;
-  text-underline-offset: 10px;
-  text-decoration-color: #35353fad;
-  margin-bottom: 22px;
 `;
 
 const StyledStarIcon = styled(GiFallingStar)`
@@ -154,6 +152,7 @@ const CustomH2 = styled.h2`
   font-size: 25px;
   font-weight: bold;
   color: #35353f;
+  margin-bottom: 50px;
 `;
 
 const StyledSpan = styled.span`
@@ -162,6 +161,7 @@ const StyledSpan = styled.span`
   color: #212127;
   width: 80%;
   word-wrap: break-word;
+  line-height: 22px;
 `;
 
 const NameContainer = styled.div`
@@ -175,6 +175,15 @@ const NameContainer = styled.div`
 const LuckyBag = styled.img`
   height: 15px;
   margin-left: 6px;
+`;
+
+const CustomHr = styled.hr`
+  width: 100%;
+  border: none;
+  height: 1px;
+  background-color: #d7cebbb8;
+  border-radius: 5px;
+  margin: 34px 0;
 `;
 
 export default ContentItem;
