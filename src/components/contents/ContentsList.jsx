@@ -10,7 +10,7 @@ import ContentFooter from "../common/ContentFooter";
 const ContentsList = () => {
   const contents = useSelector((state) => state.contents);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(8);
+  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
 
   const lastPostIndex = currentPage * postsPerPage;
