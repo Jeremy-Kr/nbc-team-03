@@ -10,7 +10,7 @@ import ContentFooter from "../common/ContentFooter";
 const ContentsList = () => {
   const contents = useSelector((state) => state.contents);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(8);
+  const [postsPerPage] = useState(8);
   const dispatch = useDispatch();
 
   const lastPostIndex = currentPage * postsPerPage;
@@ -28,7 +28,7 @@ const ContentsList = () => {
     <ContentsListWrapper>
       <Nav />
       <ContentsListItemContainer>
-        <ContentListTitle>🎊 2023 작심 목록 🎊</ContentListTitle>
+        <ContentListTitle>🎊 2023 소원 목록 🎊</ContentListTitle>
         <CustomHr />
         {currentPosts && <ContentListItem contents={currentPosts} />}
 

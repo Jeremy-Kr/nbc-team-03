@@ -5,7 +5,11 @@ import styled from "styled-components";
 const Layout = () => {
   return (
     <LayoutContainer>
-      <IphoneFrame src="/assets/iphone-frame-purple.png" alt="프레임" />
+      <IphoneFrame
+        draggable={false}
+        src="/assets/iphone-frame-purple.png"
+        alt="프레임"
+      />
       <ComponentsContainer>
         <Outlet></Outlet>
       </ComponentsContainer>

@@ -13,7 +13,9 @@ export const getComments = createAsyncThunk(
   `${name}/getComments`,
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:3001/comments");
+      const res = await axios.get(
+        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -25,7 +27,10 @@ export const postComments = createAsyncThunk(
   `${name}/postComments`,
   async (payload, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:3001/comments", payload);
+      await axios.post("http://localhost:3001/comments", payload);
+      const res = await axios.get(
+        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -38,7 +43,9 @@ export const deleteComment = createAsyncThunk(
   async (commentId, { fulfillWithValue, rejectWithValue }) => {
     try {
       await axios.delete(`http://localhost:3001/comments/${commentId}`);
-      const res = await axios.get("http://localhost:3001/comments");
+      const res = await axios.get(
+        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -57,7 +64,9 @@ export const patchComment = createAsyncThunk(
         commentText,
         nickname,
       });
-      const res = await axios.get("http://localhost:3001/comments");
+      const res = await axios.get(
+        "http://localhost:3001/comments?_sort=createdDate&_order=desc"
+      );
       return fulfillWithValue(res.data);
     } catch (e) {
       return rejectWithValue(e);
@@ -85,8 +94,7 @@ const commentsSlice = createSlice({
       state.isLoading = true;
     },
     [postComments.fulfilled]: (state, action) => {
-      const newComments = [...state.commentsData, action.payload];
-      state.commentsData = newComments;
+      state.commentsData = action.payload;
       state.isLoading = false;
     },
     [postComments.rejected]: (state, action) => {

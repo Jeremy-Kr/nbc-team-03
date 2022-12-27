@@ -3,13 +3,9 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { __getSelectedContent } from "../../redux/modules/contents";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  AiFillEdit,
-  AiOutlineCloseCircle,
-  AiFillPushpin,
-} from "react-icons/ai";
+import { TfiPencilAlt, TfiTrash } from "react-icons/tfi";
+import { GiFallingStar } from "react-icons/gi";
 import { deleteContent } from "../../redux/modules/contents";
-import { useNavigate } from "react-router-dom";
 
 const ContentItem = () => {
   const contents = useSelector((state) => state.contents);
@@ -17,10 +13,15 @@ const ContentItem = () => {
   const paramId = useParams().id;
   const navigate = useNavigate();
 
-  const paramId = useParams().id;
-
   const handleOnDeleteClick = () => {
-    dispatch(deleteContent(paramId));
+    const confirmPassword = prompt("삭제하시려면 비밀번호를 입력하세요.");
+    if (confirmPassword === contents.content.password) {
+      dispatch(deleteContent(paramId));
+      alert("삭제 되었습니다.");
+      navigate("/home");
+    } else {
+      alert("취소 되었습니다.");
+    }
   };
 
   useEffect(() => {
@@ -36,70 +37,53 @@ const ContentItem = () => {
   return (
     <StyledTotalContainer>
       <StyledItemBox>
-        <AiOutlineCloseCircle
+        <StyledDeleteIcon
           onClick={() => {
-            const valid = false;
-            do {
-              const confirm = prompt("삭제하시려면 비밀번호를 입력하세요.");
-              switch (confirm) {
-                case "123":
-                  alert("비밀번호가 일치합니다.");
-                  valid = true;
-                  break;
-                default:
-                  alert("잘못된 비밀번호입니다.");
-                  valid = false;
-                  break;
-              }
-            } while (!valid);
-            if (window.confirm("정말 삭제하시겠습니까?")) {
-              alert("삭제되었습니다.");
-              handleOnDeleteClick();
-              navigate("/home");
-            } else {
-              alert("취소되었습니다.");
-            }
+            handleOnDeleteClick();
           }}
-          style={{ float: "right", cursor: "pointer" }}
-        ></AiOutlineCloseCircle>
-        <AiFillEdit
+        />
+        <StyledEditIcon
           onClick={() => navigate(`/content/Update/${paramId}`)}
-          style={{ float: "right", marginRight: "15px", cursor: "pointer" }}
-        ></AiFillEdit>
+        />
         <CustomH2>{contents.content && contents.content.contentTitle}</CustomH2>
-        <div style={{ float: "right", color: "#5E5E5E", marginTop: "10px" }}>
-          {contents.content && contents.content.nickname}
-        </div>
-
-        <ul>
-          <StyledItemSemiTitle>
-            <span>
-              <AiFillPushpin />
-            </span>
-            &nbsp;이유
-          </StyledItemSemiTitle>
-          <StyledLi>{contents.content && contents.content.contentWhy}</StyledLi>
-        </ul>
-        <ul>
-          <StyledItemSemiTitle>
-            <span>
-              <AiFillPushpin />
-            </span>
-            &nbsp;할일
-          </StyledItemSemiTitle>
-          <StyledLi>{contents.content && contents.content.contentHow}</StyledLi>
-        </ul>
-        <ul>
-          <StyledItemSemiTitle>
-            <span>
-              <AiFillPushpin />
-            </span>
-            &nbsp;목표달성일
-          </StyledItemSemiTitle>
-          <StyledLi>
-            {contents.content && contents.content.contentWhen}
-          </StyledLi>
-        </ul>
+        <StyledItemSemiTitle>
+          <span>
+            <StyledStarIcon />
+          </span>
+          &nbsp; 소원을 이루고 싶은 이유
+        </StyledItemSemiTitle>
+        <CustomHr />
+        <StyledSpan>
+          {contents.content && contents.content.contentWhy}
+        </StyledSpan>
+        <StyledItemSemiTitle>
+          <span>
+            <StyledStarIcon />
+          </span>
+          &nbsp; 소원을 이루기 위해 하는 노력
+        </StyledItemSemiTitle>
+        <CustomHr />
+        <StyledSpan>
+          {contents.content && contents.content.contentHow}
+        </StyledSpan>
+        <StyledItemSemiTitle>
+          <span>
+            <StyledStarIcon />
+          </span>
+          &nbsp; 소원 이루어 지는날
+        </StyledItemSemiTitle>
+        <CustomHr />
+        <StyledSpan>
+          {contents.content && contents.content.contentWhen}
+        </StyledSpan>
+        <NameContainer>
+          {contents.content && contents.content.nickname} 님의 소원
+          <LuckyBag
+            draggable={false}
+            src="/assets/lucky-bag.png"
+            alt="복주머니"
+          />
+        </NameContainer>
       </StyledItemBox>
     </StyledTotalContainer>
   );
@@ -115,6 +99,31 @@ const StyledTotalContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
+
+const StyledEditIcon = styled(TfiPencilAlt)`
+  scale: 1.2;
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #bb2649;
+    scale: 1.3;
+  }
+`;
+
+const StyledDeleteIcon = styled(TfiTrash)`
+  margin-top: 0.5px;
+  scale: 1.4;
+  float: right;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: #bb2649;
+    scale: 1.5;
+  }
+`;
+
 const StyledItemBox = styled.div`
   box-sizing: border-box;
   background-color: #f8f5ef;
@@ -124,19 +133,53 @@ const StyledItemBox = styled.div`
   padding: 30px;
   margin-top: 20px;
 `;
+
 const StyledItemSemiTitle = styled.div`
-  font-weight: bold;
+  display: flex;
+  align-items: center;
   margin: 15px 0;
   margin-top: 30px;
+  font-size: 17px;
+  color: #212127;
+`;
+
+const StyledStarIcon = styled(GiFallingStar)`
+  color: #f28137;
+  scale: 1.05;
 `;
 
 const CustomH2 = styled.h2`
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
+  color: #35353f;
 `;
 
-const StyledLi = styled.li`
+const StyledSpan = styled.span`
   margin: 10px 0;
+  font-size: 15px;
+  color: #212127;
+`;
+
+const NameContainer = styled.div`
+  display: flex;
+  align-items: center;
+  float: right;
+  color: #5e5e5e;
+  margin-top: 10px;
+`;
+
+const LuckyBag = styled.img`
+  height: 15px;
+  margin-left: 6px;
+`;
+
+const CustomHr = styled.hr`
+  width: 65%;
+  border: none;
+  height: 1px;
+  background-color: #35353f;
+  border-radius: 5px;
+  margin: 14px 0;
 `;
 
 export default ContentItem;

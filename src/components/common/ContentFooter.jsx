@@ -13,6 +13,10 @@ const ContentFooter = ({
     pages.push(i);
   }
 
+  const newYearDay = new Date(2022, 12, 1);
+  const today = new Date();
+  const dayGap = newYearDay.getTime() - today.getTime();
+  const dayCount = Math.ceil(dayGap / (1000 * 60 * 60 * 24));
   return (
     <ListFooterWrapper>
       <PageNationWrapper>
@@ -45,7 +49,7 @@ const ContentFooter = ({
         </ArrowBtn>
       </PageNationWrapper>
       <br />
-      <DayCounter> 2023년까지 D - 000</DayCounter>
+      <DayCounter> 2023년까지 D - {dayCount} </DayCounter>
     </ListFooterWrapper>
   );
 };
@@ -58,6 +62,7 @@ const ListFooterWrapper = styled.div`
 const PageNationWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   padding-bottom: 20px;
 `;
 const ArrowBtn = styled.button`
