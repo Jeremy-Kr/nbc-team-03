@@ -19,8 +19,8 @@
     "styled-components": "^5.3.6"
   },
   "scripts": {
-    "start": "env-cmd -f .env react-scripts start",
-    "build": "env-cmd -f .env react-scripts build"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
