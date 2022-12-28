@@ -36,6 +36,21 @@ export const postContent = createAsyncThunk(
     }
   }
 );
+
+export const searchContents = createAsyncThunk(
+  "contents/searchContents",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/content?${payload[0]}_like=${payload[1]}`
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // 목록가져오기
 export const __getContents = createAsyncThunk(
   "contents/getContents",
@@ -160,6 +175,17 @@ const contentsSlice = createSlice({
       state.contents = action.payload; // Store에 있는 contents에 서버에서 가져온 contents를 넣습니다.
     },
     [patchContent.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
+    [searchContents.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [searchContents.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.contents = action.payload; // Store에 있는 contents에 서버에서 가져온 contents를 넣습니다.
+    },
+    [searchContents.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
