@@ -1,14 +1,18 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomBtn from "./CustomBtn";
+import { __getContents } from "../../redux/modules/contents";
 
 const Nav = ({ isInput }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <NavWrapper>
       <LogoDiv
         onClick={() => {
           navigate("/home");
+          dispatch(__getContents());
         }}
       >
         作心
