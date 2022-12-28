@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import ContentListItem from "./ContentListItem";
 import { __getContents } from "../../redux/modules/contents";
 import ContentFooter from "../common/ContentFooter";
+import ContentSearch from "./ContentSearch";
 
 const ContentsList = () => {
   const contents = useSelector((state) => state.contents);
@@ -31,7 +32,6 @@ const ContentsList = () => {
         <ContentListTitle>🎊 2023 소원 목록 🎊</ContentListTitle>
         <CustomHr />
         {currentPosts && <ContentListItem contents={currentPosts} />}
-
         <br />
         <br />
         {currentPosts && (
@@ -42,6 +42,7 @@ const ContentsList = () => {
             currentPage={currentPage}
           />
         )}
+        <ContentSearch /> {/* 내용검색바 */}
       </ContentsListItemContainer>
     </ContentsListWrapper>
   );
