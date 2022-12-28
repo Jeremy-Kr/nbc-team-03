@@ -44,7 +44,7 @@ const ContentUpdate = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (passwordRef.current.value !== contents.content.password) {
-      alert("비밀번호를 확인 해 주세요!");
+      alert("비밀번호를 확인해 주세요!");
       return;
     }
     const newContent = {
@@ -82,7 +82,7 @@ const ContentUpdate = () => {
       return;
     } else {
       dispatch(patchContent({ newContent, paramId }));
-      alert("소원이 등록되었습니다🙏🏻");
+      alert("소원이 수정되었습니다.🙏🏻");
       navigate("/home");
     }
 
